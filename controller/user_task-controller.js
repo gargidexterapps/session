@@ -1,16 +1,16 @@
-const StatusModel = require("../model/status-model")
-const StatusSchema = require("../model/status-model")
+const User_taskModel = require("../model/user_task-model")
+const User_taskSchema = require("../model/user_task-model")
 
-module.exports.addStatus = function(req,res){
+module.exports.addUserTask = function(req,res){
+    let user = req.body.user
+    let task = req.body.task
 
-    let statusName = req.body.statusName
-    
-
-    let status = new StatusSchema({
-        statusName: statusName
+    let uesrtask = new User_taskSchema({
+        user:user,
+        task:task
     })
 
-    status.save(function(err,success){
+    uesrtask.save(function(err,success){
         if(err)
         {
             res.json({
@@ -22,18 +22,16 @@ module.exports.addStatus = function(req,res){
         else
         {
             res.json({
-                msg:"Status added successfully",
+                msg:"UserTask added successfully",
                 status:200,
                 data:success
             })
         }
-
     })
-
 }
 
-module.exports.getStatus = function(req,res){
-    StatusModel.find(function(err,success){
+module.exports.getAllUserTask = function(req,res){
+    User_taskModel.find().populate("user").populate("task").exec(function(err,success){
         if(err)
         {
             res.json({
@@ -44,7 +42,7 @@ module.exports.getStatus = function(req,res){
         }
         else{
             res.json({
-                msg:"Users retrieved",
+                msg:"User Tasks retrieved",
                 status:200,
                 data:success
             })
@@ -52,10 +50,11 @@ module.exports.getStatus = function(req,res){
     })
  }
 
- module.exports.deletestatus = function(req,res){
-    let StatusId = req.params.StatusId
 
-    StatusModel.deleteOne({"_id":StatusId},function(err,success){
+ module.exports.deleteUserTask = function(req,res){
+    let UserTaskId = req.params.UserTaskId
+
+    User_taskModel.deleteOne({"_id":UserTaskId},function(err,success){
         if(err)
         {
             res.json({
@@ -66,7 +65,7 @@ module.exports.getStatus = function(req,res){
         }
         else{
             res.json({
-                msg:"status removed..",
+                msg:"User Task removed..",
                 status:200,
                 data:success
             })
@@ -74,14 +73,13 @@ module.exports.getStatus = function(req,res){
     })
 }
 
-module.exports.updatestatus = function(req,res){
-    let StatusId = req.body.StatusId
-    let statusName = req.body.statusName
-   
+module.exports.updateUserTask = function(req,res){
+    let UserTaskId = req.body.UserTaskId
+    let user = req.body.user
+    let task = req.body.task
     
     
-    
-    StatusModel.updateOne({_id:StatusId},{statusName:statusName},function(err,success){
+    User_taskModel.updateOne({_id:UserTaskId},{user:user,task:task},function(err,success){
         if(err)
         {
             res.json({
@@ -100,4 +98,3 @@ module.exports.updatestatus = function(req,res){
     })
 
 }
- 

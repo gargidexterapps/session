@@ -5,10 +5,7 @@ let StatusSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    project:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"project"
-    }
+    
 })
 
 let StatusModel = mongoose.model("status",StatusSchema)

@@ -26,6 +26,10 @@ let ProjectSchema = new mongoose.Schema({
     technology:{
         type:String,
         
+    },
+    status:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"status"
     }
 })
 

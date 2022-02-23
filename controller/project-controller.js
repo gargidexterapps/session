@@ -9,6 +9,7 @@ module.exports.addProject = function(req,res){
     let enddate = req.body.enddate
     let estimatedhours = req.body.estimatedhours
     let technology = req.body.technology
+    let status = req.body.status
 
     let project = new ProjectSchema({
         projectName: projectName,
@@ -16,7 +17,8 @@ module.exports.addProject = function(req,res){
         startdate:startdate,
         enddate:enddate,
         estimatedhours:estimatedhours,
-        technology:technology
+        technology:technology,
+        status:status
     })
 
     project.save(function(err,success){
@@ -40,7 +42,7 @@ module.exports.addProject = function(req,res){
 }
 
 module.exports.getAllProject = function(req,res){
-    ProjectModel.find(function(err,success){
+    ProjectModel.find().populate("status").exec(function(err,success){
         if(err)
        {
            res.json({
@@ -51,7 +53,7 @@ module.exports.getAllProject = function(req,res){
        }
        else{
            res.json({
-               msg:"Users retrieved",
+               msg:"Status retrieved",
                status:200,
                data:success
            })
@@ -89,9 +91,10 @@ module.exports.updateProject = function(req,res){
     let enddate = req.body.enddate
     let estimatedhours = req.body.estimatedhours
     let technology = req.body.technology
+    let status = req.body.status
     
     
-    ProjectModel.updateOne({_id:ProjectId},{projectName:projectName,description:description,startdate:startdate,enddate:enddate,estimatedhours:estimatedhours,technology:technology},function(err,success){
+    ProjectModel.updateOne({_id:ProjectId},{projectName:projectName,description:description,startdate:startdate,enddate:enddate,estimatedhours:estimatedhours,technology:technology,status:status},function(err,success){
         if(err)
         {
             res.json({
