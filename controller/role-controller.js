@@ -13,7 +13,7 @@ module.exports.addRole = function(req,res){
         if(err){
             console.log(err);
             res.json({
-                msg:"na thyu lya",
+                msg:"Something went wrong",
                 status:-1,
                 data:req.body
             }) 
@@ -21,7 +21,7 @@ module.exports.addRole = function(req,res){
             else
             {
                 res.json({
-                    msg:"role thai gyu lya",
+                    msg:"role added",
                     status:200,
                     data:success
                 })
