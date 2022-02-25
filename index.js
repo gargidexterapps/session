@@ -7,6 +7,11 @@ const projectController=require("./controller/project-controller")
 const projectTeamController=require("./controller/project_team-controller")
 const statusController=require("./controller/status-controller")
 const moduleController=require("./controller/project_module-controller")
+const taskController = require("./controller/task-controller")
+const usertaskController = require("./controller/user_task-controller");
+const priorityController = require("./controller/priority-controller")
+
+
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -50,6 +55,22 @@ app.get("/module",moduleController.getAllModule)
 app.put("/module",moduleController.updatemodule)
 app.delete("/module/:ModuleId",moduleController.deletemodule)
 
+app.post("/task",taskController.addTask)
+app.get("/task",taskController.getAllTask)
+app.put("/task",taskController.updateTask)
+app.delete("/task/:TaskId",taskController.deleteTask)
+
+app.post("/usertask",usertaskController.addUserTask)
+app.get("/usertask",usertaskController.getAllUserTask)
+app.delete("/usertask/:UserTaskId",usertaskController.deleteUserTask)
+app.put("/usertask",usertaskController.updateUserTask)
+
+app.post("/priority",priorityController.addPriority)
+app.get("/priority",priorityController.getAllPriority)
+app.put("/priority",priorityController.updatePriority)
+app.delete("/priority/:PriorityId",priorityController.deletePriority)
+
+
 mongoose.connect('mongodb://localhost:27017/timetracking',function(err){
     if(err)
     {
@@ -62,4 +83,7 @@ mongoose.connect('mongodb://localhost:27017/timetracking',function(err){
 app.listen(3000,function(){
     console.log("Server started on 3000");
 })
+
+
+ 
                 
